@@ -1,0 +1,21 @@
+#端口号
+server:
+  port: 7000
+#微服务名称
+spring:
+  application:
+    name: gateway
+#路由配置
+  cloud:
+    gateway:
+      routes:
+        - id: web #唯一标签
+          order: 0 #优先级值越小优先级越高
+          uri: http://localhost:8089  #gateway转发到的路径
+          predicates:
+            - Path=/web/register/** #记住这个Path的P一定要大写注意这里#路径反正真实路径是/web/register那这里就要写/web/register/**，原因我也不要知道且这个转发路径不关于nacos
+
+
+
+
+
