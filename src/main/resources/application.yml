@@ -9,11 +9,20 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: web #唯一标签
+        - id: web-register #唯一标签
           order: 0 #优先级值越小优先级越高
-          uri: http://localhost:8089  #gateway转发到的路径
+          uri: http://localhost:8089     #lb:springcloud-web-register  #gateway转发到的路径/lb loadbalance负载平衡/这里不能用www.wangjiaqing.com
           predicates:
             - Path=/web/register/** #记住这个Path的P一定要大写注意这里#路径反正真实路径是/web/register那这里就要写/web/register/**，原因我也不要知道且这个转发路径不关于nacos
+        - id: web-login
+          order: 0
+          uri: http://localhost:8089
+          predicates:
+            - Path=/web/login/**
+
+
+
+
 
 
 
