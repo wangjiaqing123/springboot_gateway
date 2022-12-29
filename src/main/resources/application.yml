@@ -1,6 +1,6 @@
 #端口号
 server:
-  port: 7000
+  port: 8000
 #微服务名称#nacos
 spring:
   application:
@@ -12,15 +12,45 @@ spring:
         - id: getaway #唯一标签
           uri:  lb://service-wechat #lb://xxx xxx是注册服务里面的服务
           predicates:
-            - Path=/lbs/v1/user/query-user-info/login**
+            - Path=/lbs/v1/user/query-user-info/login
           filters: #去掉前面的lbs访问/lbs/web实际访问/web
             - StripPrefix=1
         - id: getaway
           uri: lb://service-wechat
           predicates:
-            - Path=/lbs/v1/user/query-user-info/register**
+            - Path=/lbs/v1/user/query-user-info/register
           filters:
             - StripPrefix=1
+        - id: getaway
+          uri: lb://service-wechat
+          predicates:
+            - Path=/lbs/v1/txt/pages/query
+          filters:
+            - StripPrefix=1
+        - id: getaway
+          uri: lb://service-wechat
+          predicates:
+              - Path=/lbs/v1/txt/pages/next
+          filters:
+              - StripPrefix=1
+        - id: getaway
+          uri: lb://service-wechat
+          predicates:
+              - Path=/lbs/v1/txt/pages/cache
+          filters:
+              - StripPrefix=1
+        - id: getaway
+          uri: lb://service-wechat
+          predicates:
+              - Path=/lbs/v1/txt/pages/previous
+          filters:
+              - StripPrefix=1
+        - id: getaway
+          uri: lb://service-wechat
+          predicates:
+              - Path=/lbs/v1/txt/pages/login
+          filters:
+              - StripPrefix=1
 
 
 
