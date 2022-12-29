@@ -1,24 +1,34 @@
 #端口号
 server:
   port: 7000
-#微服务名称
+#微服务名称#nacos
 spring:
   application:
-    name: gateway
-#路由配置
+    name: getaway
   cloud:
+#路由配置
     gateway:
       routes:
-        - id: web-register #唯一标签
-          order: 0 #优先级值越小优先级越高
-          uri: http://localhost:8089     #lb:springcloud-web-register  #gateway转发到的路径/lb loadbalance负载平衡/这里不能用www.wangjiaqing.com
+        - id: getaway #唯一标签
+          uri:  lb://service-wechat #lb://xxx xxx是注册服务里面的服务
           predicates:
-            - Path=/web/register/** #记住这个Path的P一定要大写注意这里#路径反正真实路径是/web/register那这里就要写/web/register/**，原因我也不要知道且这个转发路径不关于nacos
-        - id: web-login
-          order: 0
-          uri: http://localhost:8089
+            - Path=/lbs/v1/user/query-user-info/login**
+          filters: #去掉前面的lbs访问/lbs/web实际访问/web
+            - StripPrefix=1
+        - id: getaway
+          uri: lb://service-wechat
           predicates:
-            - Path=/web/login/**
+            - Path=/lbs/v1/user/query-user-info/register**
+          filters:
+            - StripPrefix=1
+
+
+
+    nacos:
+      server-addr: localhost:8848
+
+
+
 
 
 
